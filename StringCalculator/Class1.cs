@@ -9,47 +9,34 @@ namespace StringCalculator
 {
     public class Class1
     {
-        private const int DefaultValue = 0;
-
         public int Add(string numbers)
         {
             if (CheckWhetherStringIsEmpty(numbers))
             {
-                return DefaultValue;
+                return 0; 
             }
 
-            if (IfThereIsOnlyOneNumber(numbers))
+            if (CheckWhetherStringContainsSeparator(numbers))
             {
-                return Int32.Parse(numbers); 
+                return SumOfNumbers(numbers);
             }
-
-            if (IfThereIsMoreThanOneNumber(numbers))
-            {
-                return ConvertToSingleNumber(numbers);
-            }
-            return 0;
+            return Int32.Parse(numbers);  
         }
 
-        private int ConvertToSingleNumber(string numbers)
+        private int SumOfNumbers(string numbers)
         {
-            string[] numbersArray = numbers.Split(',');
-            return numbersArray.Sum(i => Int32.Parse(i));
-        }
-
-        private bool IfThereIsMoreThanOneNumber(string numbers)
-        {
-            if (numbers.Contains(','))
+            string[] splitedNumbers = numbers.Split(',');
+            int sum = 0; 
+            foreach (string splitedNumber in splitedNumbers)
             {
-                return true;
+                sum += Int32.Parse(splitedNumber);
             }
-            return false; 
+            return sum;  
         }
 
-        private bool IfThereIsOnlyOneNumber(string numbers)
+        private bool CheckWhetherStringContainsSeparator(string numbers)
         {
-            if (numbers.Contains(','))
-                return false;
-            return true;
+            return numbers.Contains(',');
         }
 
         private bool CheckWhetherStringIsEmpty(string numbers)
